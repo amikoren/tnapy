@@ -31,7 +31,7 @@ int notifier2(char *s)
     if (!f)
 	return -1;
     fprintf(f, s);
-    
+    fclose(f);    
     return 0;
 }
 
@@ -45,7 +45,7 @@ int notifier3(char *s)
 void calc(void)
 {
     item_t *head = NULL;
-    char *s, *rev; 
+    char *s = NULL, *rev; 
 
     list_add_tail(&head, 6);
     bad_calc(head);
@@ -66,7 +66,7 @@ void calc(void)
     str_free(&s);
     printf("rev: %s\n", rev);
     
-    
+    str_free(&rev); 
 
     notifier_register("n3", notifier3); 
     notifier_register("n2", notifier2); 

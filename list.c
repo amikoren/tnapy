@@ -31,7 +31,7 @@ void list_add_tail(item_t **head, int val)
 {
     item_t *iter;
     item_t *item;
-    item = malloc(sizeof(item_t)); 
+
     item = malloc(sizeof(item_t));
     if (item == NULL)
         return;
@@ -42,7 +42,7 @@ void list_add_tail(item_t **head, int val)
         
     } else {
         item->val = val;
-        for (iter = *head; iter; iter = iter->next); 
+        for (iter = *head; iter->next; iter = iter->next); 
         item->next = iter->next;
         iter->next = item;
     }
@@ -59,7 +59,7 @@ void bad_calc(item_t *head)
 
 int list_get_largest(item_t *head)
 {
-    int largest; 
+    int largest = 0; 
     item_t *iter;
 
     for (iter = head; iter; iter = iter->next) 
@@ -72,12 +72,16 @@ int list_get_largest(item_t *head)
 
 void list_delete(item_t *head)
 {
-    item_t *iter;
+    item_t *iter, *tmp = NULL;
 
     
     
     for (iter = head; iter->next; iter = iter->next) 
-        free(iter);
+    {
+	if (tmp)
+	    free(tmp);
+        tmp = iter;
+    }
  //       cout << iter->val << "\t";
 //    cout << "\n";
     
